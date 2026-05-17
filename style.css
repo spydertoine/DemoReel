@@ -21,7 +21,6 @@ body {
     color: var(--text-color);
     font-family: var(--font-main);
     overflow-x: hidden;
-    cursor: none;
     position: relative;
 }
 
@@ -40,7 +39,7 @@ body {
 .orb {
     position: absolute;
     border-radius: 50%;
-    filter: blur(100px); /* Flou extrême pour l'effet pastel fondu */
+    filter: blur(100px);
     opacity: 0.6;
     animation: float 15s infinite ease-in-out alternate;
 }
@@ -79,7 +78,7 @@ body {
     padding: 20px 40px;
     background: rgba(255, 255, 255, 0.6);
     backdrop-filter: blur(20px);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.5); /* Ligne 3D subtile */
+    border-bottom: 1px solid rgba(255, 255, 255, 0.5);
     z-index: 100;
 }
 
@@ -129,7 +128,7 @@ body {
     font-weight: 600;
     line-height: 1.1;
     letter-spacing: -1px;
-    text-shadow: 0 10px 30px rgba(162, 164, 224, 0.2); /* Profondeur sous le texte */
+    text-shadow: 0 10px 30px rgba(162, 164, 224, 0.2);
 }
 
 .text-gradient {
@@ -159,7 +158,7 @@ body {
     height: 0;
     border-radius: 16px;
     overflow: hidden;
-    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.12); /* Ombre plus prononcée = plus haut en 3D */
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.12);
     background-color: #000;
     border: 1px solid rgba(255, 255, 255, 0.4);
 }
@@ -179,11 +178,10 @@ body {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
     gap: 40px;
-    perspective: 1000px; /* Prépare l'environnement 3D pour les cartes */
+    perspective: 1000px;
 }
 
 .project-card {
-    /* La transition gère le retour à la position initiale de l'effet 3D JS */
     transition: transform 0.2s ease-out, box-shadow 0.2s ease-out;
     transform-style: preserve-3d;
 }
@@ -198,7 +196,7 @@ body {
     aspect-ratio: 16 / 9;
     box-shadow: 0 15px 35px rgba(0, 0, 0, 0.08);
     border: 1px solid rgba(255, 255, 255, 0.5);
-    transform: translateZ(30px); /* Pousse l'image en avant */
+    transform: translateZ(30px);
 }
 
 .project-image-wrapper img { width: 100%; height: 100%; object-fit: cover; }
@@ -233,7 +231,6 @@ body {
     text-align: center;
 }
 
-/* Panneau de verre (Profondeur) */
 .glass-panel {
     background: rgba(255, 255, 255, 0.4);
     backdrop-filter: blur(20px);
@@ -277,7 +274,7 @@ body {
 }
 
 .contact-button:hover {
-    transform: translateY(-4px); /* S'élève au survol */
+    transform: translateY(-4px);
     box-shadow: 0 10px 20px rgba(29, 29, 31, 0.2);
 }
 
@@ -298,7 +295,6 @@ body {
     body { cursor: auto; }
     .custom-cursor { display: none; }
     
-    /* On garde les orbes mais on les réduit pour le mobile */
     .orb-1 { width: 300px; height: 300px; }
     .orb-2 { width: 250px; height: 250px; }
 
@@ -316,15 +312,30 @@ body {
     .projects-section { padding: 60px 20px; }
     .section-title { font-size: 1.8rem; margin-bottom: 30px; }
     .projects-grid { grid-template-columns: 1fr !important; gap: 30px; }
-    .project-card { width: 100%; transform: none !important; /* Désactive la 3D sur mobile pour éviter les bugs tactiles */ }
+    .project-card { width: 100%; transform: none !important; }
     .project-card h3 { font-size: 1.15rem; word-wrap: break-word; }
     .project-card p { font-size: 0.9rem; }
 
     .about-section { padding: 60px 20px; }
-    .glass-panel { padding: 30px 20px; } /* Moins large sur mobile */
+    .glass-panel { padding: 30px 20px; }
     .about-text p { font-size: 1rem; line-height: 1.6; }
 
     .contact-section { padding: 40px 15px; }
     .contact-card { padding: 30px 20px; }
     .contact-card h2 { font-size: 1.8rem; }
+}
+
+/* --- SÉCURITÉ ANTI-TACTILE (Tablettes, iPad, Smartphones) --- */
+@media (hover: none) and (pointer: coarse) {
+    body {
+        cursor: auto !important;
+    }
+
+    .custom-cursor {
+        display: none !important;
+    }
+
+    .project-card {
+        transform: none !important;
+    }
 }
