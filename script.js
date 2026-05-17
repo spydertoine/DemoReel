@@ -1,5 +1,9 @@
 document.addEventListener('DOMContentLoaded', () => {
-
+    // Force le retour tout en haut de la page au chargement
+    if ('scrollRestoration' in history) {
+        history.scrollRestoration = 'manual';
+    }
+    window.scrollTo(0, 0);
     // --- CONFIGURATION ---
     const breakpointMobile = 1024; // Augmenté pour couvrir les tablettes (iPad)
 
@@ -14,7 +18,7 @@ document.addEventListener('DOMContentLoaded', () => {
             (navigator.maxTouchPoints > 0) ||
             (navigator.msMaxTouchPoints > 0) ||
             // La sécurité ultime : si l'appareil principal de navigation est un doigt (tactile)
-            window.matchMedia("(pointer: coarse)").matches 
+            window.matchMedia("(pointer: coarse)").matches
         );
     };
 
@@ -33,7 +37,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // B. Effets de survol sur éléments interactifs
         const interactiveElements = document.querySelectorAll('a, .btn-contact, .project-card');
-        
+
         interactiveElements.forEach(el => {
             el.addEventListener('mouseenter', () => {
                 cursor.style.transform = 'translate(-50%, -50%) scale(1.5)';
@@ -61,16 +65,16 @@ document.addEventListener('DOMContentLoaded', () => {
                 const rect = card.getBoundingClientRect();
                 const x = e.clientX - rect.left;
                 const y = e.clientY - rect.top;
-                
+
                 const centerX = rect.width / 2;
                 const centerY = rect.height / 2;
-                
+
                 const rotateX = ((y - centerY) / centerY) * -8; // Max 8 degrés
                 const rotateY = ((x - centerX) / centerX) * 8; // Max 8 degrés
 
                 requestAnimationFrame(() => {
                     card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
-                    
+
                     const shadowX = (x - centerX) / 10;
                     const shadowY = (y - centerY) / 10;
                     card.style.boxShadow = `${-shadowX}px ${-shadowY}px 40px rgba(0, 0, 0, 0.15)`;
@@ -96,7 +100,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     }, {
-        threshold: 0.15 
+        threshold: 0.15
     });
 
     revealElements.forEach(element => {
