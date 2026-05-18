@@ -29,7 +29,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- 2. DARK MODE (Thème sombre) ---
     const themeToggle = document.querySelector('.theme-toggle');
     const body = document.body;
-    
+
     // Vérifie si un thème était déjà sauvegardé
     if (localStorage.getItem('theme') === 'dark') {
         body.classList.add('dark-mode');
@@ -141,12 +141,15 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
 
-    // --- 5. LECTEUR VIDÉO PRINCIPAL : AVANCE/RETOUR 10S ---
-    const videoElement = document.getElementById('showreel-video');
+    // --- LECTEUR VIDÉO PRINCIPAL : AVANCE/RETOUR 10S ---
+    const videoElement = document.getElementById('DemoReel-video');
+
     if (videoElement) {
         document.addEventListener('keydown', (e) => {
+            // On vérifie que la vidéo est bien visible à l'écran avant d'activer les touches
             const rect = videoElement.getBoundingClientRect();
             const isVisible = rect.top >= 0 && rect.bottom <= window.innerHeight;
+
             if (isVisible) {
                 if (e.key === 'ArrowRight') {
                     videoElement.currentTime += 10;

@@ -41,10 +41,17 @@ body {
 
 /* --- PRELOADER PREMIUM (Adaptatif Clair / Sombre) --- */
 .preloader {
-    position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
     /* On utilise la variable pour que le fond s'adapte au thème actif */
-    background-color: var(--bg-color); 
-    display: flex; flex-direction: column; justify-content: center; align-items: center;
+    background-color: var(--bg-color);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     z-index: 999999;
     transition: transform 1s cubic-bezier(0.86, 0, 0.07, 1), opacity 1s ease;
 }
@@ -57,14 +64,18 @@ body {
 
 .loader-content {
     position: relative;
-    display: flex; justify-content: center; align-items: center;
-    width: 150px; height: 150px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 150px;
+    height: 150px;
 }
 
 /* L'anneau principal extérieur */
 .loader-ring {
     position: absolute;
-    width: 100%; height: 100%;
+    width: 100%;
+    height: 100%;
     border-radius: 50%;
     border: 3px solid transparent;
     border-top-color: #A2A4E0;
@@ -75,38 +86,59 @@ body {
 
 /* L'anneau secondaire intérieur */
 .loader-ring::before {
-    content: ""; position: absolute;
-    top: 10px; left: 10px; right: 10px; bottom: 10px;
-    border-radius: 50%; border: 2px solid transparent;
-    border-left-color: var(--text-color); /* S'adapte pour contraster avec le fond */
+    content: "";
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    right: 10px;
+    bottom: 10px;
+    border-radius: 50%;
+    border: 2px solid transparent;
+    border-left-color: var(--text-color);
+    /* S'adapte pour contraster avec le fond */
     border-bottom-color: #A2A4E0;
     opacity: 0.3;
     animation: spin 2s linear infinite reverse;
 }
 
 .loader-counter {
-    font-size: 1.5rem; font-weight: 600; 
+    font-size: 1.5rem;
+    font-weight: 600;
     /* Le texte s'adapte automatiquement au thème (clair ou sombre) */
-    color: var(--text-color); 
-    letter-spacing: 2px; font-variant-numeric: tabular-nums;
+    color: var(--text-color);
+    letter-spacing: 2px;
+    font-variant-numeric: tabular-nums;
     position: absolute;
 }
 
 .loader-text {
-    margin-top: 40px; font-size: 0.8rem; letter-spacing: 6px;
-    text-transform: uppercase; 
+    margin-top: 40px;
+    font-size: 0.8rem;
+    letter-spacing: 6px;
+    text-transform: uppercase;
     /* Le sous-texte s'adapte aussi */
-    color: var(--text-muted); 
+    color: var(--text-muted);
     animation: pulseText 2s infinite alternate;
 }
 
-@keyframes spin { 
-    0% { transform: rotate(0deg); } 
-    100% { transform: rotate(360deg); } 
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
 }
-@keyframes pulseText { 
-    0% { opacity: 0.4; } 
-    100% { opacity: 1; } 
+
+@keyframes pulseText {
+    0% {
+        opacity: 0.4;
+    }
+
+    100% {
+        opacity: 1;
+    }
 }
 
 .loader-counter {
@@ -312,6 +344,7 @@ body {
     border: 1px solid var(--glass-border);
 }
 
+/* On cible bien la balise video native */
 .video-container video {
     position: absolute;
     top: 0;
