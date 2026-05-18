@@ -1,4 +1,4 @@
-/* --- VARIABLES & RESET --- */
+/* --- VARIABLES & RESET (Clair par défaut) --- */
 :root {
     --bg-color: #F5F5F7;
     --text-color: #1D1D1F;
@@ -6,7 +6,21 @@
     --pastel-mauve: #E8DFF5;
     --pastel-blue: #DCE1F2;
     --accent-gradient: linear-gradient(135deg, #A2A4E0, #C2B6DF);
+    --glass-bg: rgba(255, 255, 255, 0.4);
+    --glass-border: rgba(255, 255, 255, 0.6);
     --font-main: 'Inter', sans-serif;
+}
+
+/* --- VARIABLES DARK MODE CINÉMATIQUE --- */
+body.dark-mode {
+    --bg-color: #0d0d12;
+    --text-color: #F5F5F7;
+    --text-muted: #A1A1A6;
+    --pastel-mauve: #2a223a;
+    --pastel-blue: #1c2233;
+    --accent-gradient: linear-gradient(135deg, #8183c2, #9a8bbd);
+    --glass-bg: rgba(30, 30, 35, 0.4);
+    --glass-border: rgba(255, 255, 255, 0.1);
 }
 
 * {
@@ -22,9 +36,93 @@ body {
     font-family: var(--font-main);
     overflow-x: hidden;
     position: relative;
+    transition: background-color 0.5s ease, color 0.5s ease;
 }
 
-/* --- ORBES D'ARRIÈRE-PLAN (EFFET VIVANT & PROFONDEUR) --- */
+/* --- PRELOADER PREMIUM (Adaptatif Clair / Sombre) --- */
+.preloader {
+    position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+    /* On utilise la variable pour que le fond s'adapte au thème actif */
+    background-color: var(--bg-color); 
+    display: flex; flex-direction: column; justify-content: center; align-items: center;
+    z-index: 999999;
+    transition: transform 1s cubic-bezier(0.86, 0, 0.07, 1), opacity 1s ease;
+}
+
+.preloader.hidden {
+    transform: translateY(-100%);
+    opacity: 0;
+    pointer-events: none;
+}
+
+.loader-content {
+    position: relative;
+    display: flex; justify-content: center; align-items: center;
+    width: 150px; height: 150px;
+}
+
+/* L'anneau principal extérieur */
+.loader-ring {
+    position: absolute;
+    width: 100%; height: 100%;
+    border-radius: 50%;
+    border: 3px solid transparent;
+    border-top-color: #A2A4E0;
+    border-right-color: #C2B6DF;
+    animation: spin 1.5s cubic-bezier(0.68, -0.55, 0.265, 1.55) infinite;
+    box-shadow: 0 0 30px rgba(162, 164, 224, 0.2);
+}
+
+/* L'anneau secondaire intérieur */
+.loader-ring::before {
+    content: ""; position: absolute;
+    top: 10px; left: 10px; right: 10px; bottom: 10px;
+    border-radius: 50%; border: 2px solid transparent;
+    border-left-color: var(--text-color); /* S'adapte pour contraster avec le fond */
+    border-bottom-color: #A2A4E0;
+    opacity: 0.3;
+    animation: spin 2s linear infinite reverse;
+}
+
+.loader-counter {
+    font-size: 1.5rem; font-weight: 600; 
+    /* Le texte s'adapte automatiquement au thème (clair ou sombre) */
+    color: var(--text-color); 
+    letter-spacing: 2px; font-variant-numeric: tabular-nums;
+    position: absolute;
+}
+
+.loader-text {
+    margin-top: 40px; font-size: 0.8rem; letter-spacing: 6px;
+    text-transform: uppercase; 
+    /* Le sous-texte s'adapte aussi */
+    color: var(--text-muted); 
+    animation: pulseText 2s infinite alternate;
+}
+
+@keyframes spin { 
+    0% { transform: rotate(0deg); } 
+    100% { transform: rotate(360deg); } 
+}
+@keyframes pulseText { 
+    0% { opacity: 0.4; } 
+    100% { opacity: 1; } 
+}
+
+.loader-counter {
+    font-size: 5rem;
+    font-weight: 300;
+    color: var(--text-color);
+    letter-spacing: -2px;
+    font-variant-numeric: tabular-nums;
+}
+
+.preloader.hidden {
+    opacity: 0;
+    visibility: hidden;
+}
+
+/* --- ORBES D'ARRIÈRE-PLAN --- */
 .bg-orbs {
     position: fixed;
     top: 0;
@@ -42,6 +140,7 @@ body {
     filter: blur(100px);
     opacity: 0.6;
     animation: float 15s infinite ease-in-out alternate;
+    transition: background-color 1s ease;
 }
 
 .orb-1 {
@@ -95,7 +194,7 @@ body {
     transition: transform 0.1s ease, background-color 0.3s ease;
 }
 
-/* --- NAVBAR (Effet Verre renforcé) --- */
+/* --- NAVBAR --- */
 .navbar {
     position: fixed;
     top: 0;
@@ -104,16 +203,22 @@ body {
     justify-content: space-between;
     align-items: center;
     padding: 20px 40px;
-    background: rgba(255, 255, 255, 0.6);
+    background: var(--glass-bg);
     backdrop-filter: blur(20px);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.5);
+    border-bottom: 1px solid var(--glass-border);
     z-index: 100;
+    transition: background 0.5s;
 }
 
 .nav-logo {
     font-weight: 600;
     letter-spacing: 2px;
     font-size: 0.9rem;
+}
+
+.nav-links {
+    display: flex;
+    align-items: center;
 }
 
 .nav-links a {
@@ -129,10 +234,24 @@ body {
 }
 
 .btn-contact {
-    background: white;
+    background: var(--text-color);
+    color: var(--bg-color) !important;
     padding: 8px 16px;
     border-radius: 20px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+}
+
+/* Bouton Dark Mode */
+.theme-toggle {
+    background: none;
+    border: none;
+    font-size: 1.2rem;
+    cursor: pointer;
+    margin-left: 20px;
+    transition: transform 0.3s;
+}
+
+.theme-toggle:hover {
+    transform: scale(1.2);
 }
 
 /* --- HERO SECTION --- */
@@ -158,7 +277,7 @@ body {
     font-weight: 600;
     line-height: 1.1;
     letter-spacing: -1px;
-    text-shadow: 0 10px 30px rgba(162, 164, 224, 0.2);
+    text-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
 }
 
 .text-gradient {
@@ -184,17 +303,15 @@ body {
 
 .video-container {
     position: relative;
-    padding-bottom: 56.25%;
-    /* Garde le format 16:9 parfait */
-    height: 0;
+    width: 100%;
+    aspect-ratio: 16 / 9;
     border-radius: 16px;
     overflow: hidden;
     box-shadow: 0 30px 60px rgba(0, 0, 0, 0.12);
     background-color: #000;
-    border: 1px solid rgba(255, 255, 255, 0.4);
+    border: 1px solid var(--glass-border);
 }
 
-/* On cible maintenant la balise video au lieu de l'iframe */
 .video-container video {
     position: absolute;
     top: 0;
@@ -202,17 +319,7 @@ body {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    /* Assure que la vidéo remplit bien le cadre sans bandes noires */
     outline: none;
-    /* Enlève la bordure de sélection moche au clic */
-}
-
-.video-container iframe {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
 }
 
 /* --- PROJECTS SECTION --- */
@@ -260,7 +367,7 @@ body {
     overflow: hidden;
     aspect-ratio: 16 / 9;
     box-shadow: 0 15px 35px rgba(0, 0, 0, 0.08);
-    border: 1px solid rgba(255, 255, 255, 0.5);
+    border: 1px solid var(--glass-border);
     transform: translateZ(30px);
 }
 
@@ -270,23 +377,44 @@ body {
     object-fit: cover;
 }
 
+/* EFFET NETFLIX (Vidéo au survol) */
+.hover-video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    z-index: 1;
+    pointer-events: none;
+}
+
+.project-card:hover .hover-video {
+    opacity: 1;
+}
+
 .project-overlay {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(162, 164, 224, 0.2);
+    background: rgba(0, 0, 0, 0.2);
     backdrop-filter: blur(4px);
     display: flex;
     align-items: center;
     justify-content: center;
     opacity: 0;
     transition: opacity 0.3s ease;
+    z-index: 2;
+    /* Reste au dessus de la vidéo */
 }
 
 .project-overlay span {
     background: white;
+    color: #1D1D1F;
     padding: 8px 16px;
     border-radius: 20px;
     font-size: 0.85rem;
@@ -310,18 +438,20 @@ body {
 }
 
 .glass-panel {
-    background: rgba(255, 255, 255, 0.4);
+    background: var(--glass-bg);
     backdrop-filter: blur(20px);
     padding: 60px;
     border-radius: 24px;
-    border: 1px solid rgba(255, 255, 255, 0.6);
+    border: 1px solid var(--glass-border);
     box-shadow: 0 20px 50px rgba(0, 0, 0, 0.05);
+    transition: background 0.5s;
 }
 
 .about-text p {
     font-size: 1.2rem;
     line-height: 1.8;
-    color: #424245;
+    color: var(--text-color);
+    opacity: 0.9;
     margin-top: 20px;
 }
 
@@ -334,12 +464,12 @@ body {
 }
 
 .skills-tags span {
-    background: rgba(255, 255, 255, 0.8);
+    background: var(--glass-bg);
     padding: 8px 16px;
     border-radius: 20px;
     font-size: 0.85rem;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.03);
-    border: 1px solid rgba(255, 255, 255, 1);
+    border: 1px solid var(--glass-border);
+    backdrop-filter: blur(5px);
 }
 
 /* --- CONTACT / FOOTER --- */
@@ -350,15 +480,16 @@ body {
 }
 
 .contact-card {
-    background: linear-gradient(135deg, rgba(232, 223, 245, 0.8), rgba(220, 225, 242, 0.8));
+    background: linear-gradient(135deg, var(--pastel-mauve), var(--pastel-blue));
     backdrop-filter: blur(20px);
-    border: 1px solid rgba(255, 255, 255, 0.7);
+    border: 1px solid var(--glass-border);
     width: 100%;
     max-width: 900px;
     padding: 60px;
     border-radius: 24px;
     text-align: center;
     box-shadow: 0 30px 60px rgba(0, 0, 0, 0.08);
+    transition: background 0.5s;
 }
 
 .contact-card h2 {
@@ -367,14 +498,15 @@ body {
 }
 
 .contact-card p {
-    color: #515154;
+    color: var(--text-color);
+    opacity: 0.8;
     margin-bottom: 30px;
 }
 
 .contact-button {
     display: inline-block;
     background: var(--text-color);
-    color: white;
+    color: var(--bg-color);
     text-decoration: none;
     padding: 14px 30px;
     border-radius: 30px;
@@ -382,9 +514,13 @@ body {
     transition: transform 0.3s, box-shadow 0.3s;
 }
 
+.magnetic-btn {
+    transition: transform 0.1s ease-out;
+    /* Plus rapide pour l'effet magnétique */
+}
+
 .contact-button:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 10px 20px rgba(29, 29, 31, 0.2);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
 }
 
 .footer-links {
@@ -410,17 +546,8 @@ body {
     transform: translateY(0) scale(1);
 }
 
-
-/* --- ADAPTATIONS MOBILE ULTRA-STRICTES (Écrans de moins de 768px) --- */
+/* --- ADAPTATIONS MOBILE ULTRA-STRICTES --- */
 @media (max-width: 768px) {
-    body {
-        cursor: auto;
-    }
-
-    .custom-cursor {
-        display: none;
-    }
-
     .orb-1 {
         width: 300px;
         height: 300px;
@@ -435,8 +562,6 @@ body {
         padding: 15px;
         flex-direction: column;
         gap: 12px;
-        position: relative;
-        background: rgba(255, 255, 255, 0.8);
     }
 
     .nav-links {
@@ -452,14 +577,16 @@ body {
         font-size: 0.85rem;
     }
 
-    .btn-contact {
-        padding: 6px 12px;
-        background: rgba(162, 164, 224, 0.15);
+    .hero-section {
+        height: 100svh;
+        /* svh = Small Viewport Height, la taille exacte de l'écran du téléphone sans compter la barre d'adresse */
+        padding: 60px 20px;
     }
 
-    .hero-section {
-        height: auto;
-        padding: 60px 20px;
+    /* Agrandir la vidéo en réduisant les marges sur les côtés */
+    .showreel-section {
+        padding: 60px 15px;
+        /* On passe de 40px à 15px de marge latérale */
     }
 
     .hero-title {
@@ -471,19 +598,9 @@ body {
         padding: 60px 20px;
     }
 
-    .section-title {
-        font-size: 1.8rem;
-        margin-bottom: 30px;
-    }
-
     .projects-grid {
         grid-template-columns: 1fr !important;
         gap: 30px;
-    }
-
-    .project-card {
-        width: 100%;
-        transform: none !important;
     }
 
     .project-card h3 {
@@ -519,14 +636,15 @@ body {
     .contact-card h2 {
         font-size: 1.8rem;
     }
+
+    .theme-toggle {
+        margin-top: 10px;
+        margin-left: 0;
+    }
 }
 
-/* --- SÉCURITÉ ANTI-TACTILE (Tablettes, iPad, Smartphones) --- */
+/* --- SÉCURITÉ ANTI-TACTILE --- */
 @media (hover: none) and (pointer: coarse) {
-    body {
-        cursor: auto !important;
-    }
-
     .custom-cursor {
         display: none !important;
     }
@@ -534,4 +652,10 @@ body {
     .project-card {
         transform: none !important;
     }
+
+    .magnetic-btn {
+        transform: none !important;
+    }
+
+    /* Désactive l'aimant sur mobile */
 }

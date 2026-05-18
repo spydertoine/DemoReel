@@ -1,17 +1,23 @@
 <!DOCTYPE html>
 <html lang="fr">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portfolio VFX | Ines Vanthuyne</title>
+    <title>Portfolio VFX | Prénom Nom</title>
     <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
 </head>
-
 <body>
+
+    <div class="preloader">
+        <div class="loader-content">
+            <div class="loader-ring"></div>
+            <div class="loader-counter">0%</div>
+        </div>
+        <div class="loader-text">Rendu en cours...</div>
+    </div>
 
     <div class="bg-orbs">
         <div class="orb orb-1"></div>
@@ -22,29 +28,28 @@
     <div class="custom-cursor"></div>
 
     <nav class="navbar">
-        <div class="nav-logo">Ines Vanthuyne</div>
+        <div class="nav-logo">PRÉNOM NOM</div>
         <div class="nav-links">
             <a href="#showreel">Showreel</a>
             <a href="#projets">Projets</a>
             <a href="#a-propos">À Propos</a>
-            <a href="#contact" class="btn-contact">Contact</a>
+            <a href="#contact" class="btn-contact magnetic-btn">Contact</a>
+            <button class="theme-toggle" aria-label="Changer de thème">🌙</button>
         </div>
     </nav>
 
     <header class="hero-section">
         <div class="hero-content reveal">
             <p class="hero-subtitle">Artiste VFX & Compositing</p>
-            <h1 class="hero-title">Découvrir ma <br><span class="text-gradient">DemoReel.</span></h1>
-            <a href="#showreel" class="scroll-discover">Voir le travail ↓</a>
+            <h1 class="hero-title">Donner vie à <br><span class="text-gradient">l'imaginaire.</span></h1>
+            <a href="#showreel" class="scroll-discover">Découvrir le travail ↓</a>
         </div>
     </header>
 
     <section id="showreel" class="showreel-section reveal">
         <div class="video-container">
-            <video id="showreel-video" controls preload="metadata"
-                poster="https://images.unsplash.com/photo-1536440136628-849c177e76a1?auto=format&fit=crop&w=1200&q=80">
+            <video id="showreel-video" controls preload="metadata" poster="https://images.unsplash.com/photo-1536440136628-849c177e76a1?auto=format&fit=crop&w=1200&q=80">
                 <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
-                Désolé, votre navigateur ne supporte pas la lecture de vidéos au format MP4.
             </video>
         </div>
     </section>
@@ -52,11 +57,11 @@
     <section id="projets" class="projects-section">
         <h2 class="section-title reveal">Projets & Breakdowns</h2>
         <div class="projects-grid">
-
+            
             <div class="project-card reveal">
                 <div class="project-image-wrapper">
-                    <img src="https://images.unsplash.com/photo-1536440136628-849c177e76a1?auto=format&fit=crop&w=800&q=80"
-                        alt="Projet VFX 1">
+                    <img src="https://images.unsplash.com/photo-1536440136628-849c177e76a1?auto=format&fit=crop&w=800&q=80" alt="Projet VFX 1">
+                    <video class="hover-video" src="https://www.w3schools.com/html/mov_bbb.mp4" muted loop playsinline></video>
                     <div class="project-overlay">
                         <span>Nuke • Houdini • Maya</span>
                     </div>
@@ -67,8 +72,8 @@
 
             <div class="project-card reveal">
                 <div class="project-image-wrapper">
-                    <img src="https://images.unsplash.com/photo-1478760329108-5c3ed9d495a0?auto=format&fit=crop&w=800&q=80"
-                        alt="Projet VFX 2">
+                    <img src="https://images.unsplash.com/photo-1478760329108-5c3ed9d495a0?auto=format&fit=crop&w=800&q=80" alt="Projet VFX 2">
+                    <video class="hover-video" src="https://www.w3schools.com/html/mov_bbb.mp4" muted loop playsinline></video>
                     <div class="project-overlay">
                         <span>After Effects • Photoshop</span>
                     </div>
@@ -84,9 +89,7 @@
         <div class="about-container glass-panel">
             <div class="about-text">
                 <h2>À propos</h2>
-                <p>Étudiante passionnée en fin de cursus VFX, je me spécialise dans le compositing et la création
-                    d'effets visuels réalistes. Mon objectif est d'allier rigueur technique et sensibilité artistique
-                    pour sublimer chaque plan.</p>
+                <p>Étudiante passionnée en fin de cursus VFX, je me spécialise dans le compositing et la création d'effets visuels réalistes. Mon objectif est d'allier rigueur technique et sensibilité artistique pour sublimer chaque plan.</p>
                 <div class="skills-tags">
                     <span>Nuke</span><span>Houdini</span><span>Maya</span><span>Blender</span><span>After Effects</span>
                 </div>
@@ -98,7 +101,7 @@
         <div class="contact-card reveal">
             <h2>Un projet en tête ?</h2>
             <p>Discutons de vos besoins en effets visuels.</p>
-            <a href="mailto:votre.copine@email.com" class="contact-button">Travaillons ensemble</a>
+            <a href="mailto:votre.copine@email.com" class="contact-button magnetic-btn">Travaillons ensemble</a>
             <div class="footer-links">
                 <a href="#">LinkedIn</a>
                 <a href="#">ArtStation</a>
@@ -108,5 +111,4 @@
 
     <script src="script.js"></script>
 </body>
-
 </html>
