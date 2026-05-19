@@ -45,6 +45,11 @@ document.addEventListener('DOMContentLoaded', () => {
             themeToggle.innerText = '🌙';
             localStorage.setItem('theme', 'light');
         }
+
+        // 🐛 CORRECTIF SAFARI / iPHONE : Force le recalcul de l'affichage
+        body.style.display = 'none';
+        body.offsetHeight; /* Demande la hauteur, ce qui oblige iOS à redessiner la page */
+        body.style.display = '';
     });
 
 
